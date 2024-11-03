@@ -1,0 +1,57 @@
+<div class="option">
+    <button mat-flat-button color="primary" (click)="AddTeam()">
+        <mat-icon>add</mat-icon> Add team
+    </button>
+
+</div>
+<div class="grid-container">
+    <div class="grid-content side-bar">
+        <div>
+            <h3>Rooms</h3>
+
+            <div>
+                <h5>Stories</h5>
+                <button mat-button color="primary" (click)="createStory()">
+                    <mat-icon>add</mat-icon> Add story
+                </button>
+            </div>
+            <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Historias en esta sala">
+                @if(storys.length === 0) {
+                <mat-chip-option>No stories in this room.</mat-chip-option>
+                }
+                @for(story of storys; track $index) {
+                <mat-chip-option (selectionChange)="selectStory(story)" (removed)="selectStory(null)"
+                    [disabled]="!story.isOpen">
+                    {{ story.title }} @if(story.estimatedPoint){
+                    {{ story.estimatedPoint }}
+                    }
+                </mat-chip-option>
+                }
+            </mat-chip-listbox>
+        </div>
+    </div>
+
+    <div class="grid-content">
+        <div>
+            <p>{{storySelected?.title}}</p>
+            @if(storySelected?.description){
+            <p>{{storySelected?.description}}</p>
+            }
+            <div class="scrum-poker-cards">
+                @for (value of pokerValues; track $index) {
+                <div class="card" [ngClass]="{ 'disabled': storySelected == null }">
+                    <div class="section right">
+                        {{ value }}
+                    </div>
+                    <div class="section center">
+                        {{ value }}
+                    </div>
+                    <div class="section left">
+                        {{ value }}
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

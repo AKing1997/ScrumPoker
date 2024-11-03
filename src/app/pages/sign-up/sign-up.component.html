@@ -1,0 +1,56 @@
+<div class="auth-container">
+    <h2 class="text-center gradient-text">Create Account</h2>
+    <p class="text-center mb-20">Join thousands of agile teams using Scrum Poker</p>
+
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>UserName</mat-label>
+            <input matInput formControlName="UserName">
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="Name">
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="LastName">
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="Email" type="email">
+            <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="Password" [type]="hidePassword ? 'password' : 'text'">
+            <mat-icon matSuffix (click)="hidePassword = !hidePassword">
+                {{hidePassword ? 'visibility_off' : 'visibility'}}
+            </mat-icon>
+        </mat-form-field>
+
+        <button mat-flat-button class="full-width" type="submit" [disabled]="isLoading">
+            @if(isLoading) {
+            <ng-container>
+                <mat-progress-spinner mode="indeterminate" diameter="20"></mat-progress-spinner>
+            </ng-container>
+            }
+            @if(!isLoading) {
+            <ng-container>
+                <mat-icon>person_add</mat-icon>
+                Sign Up
+            </ng-container>
+            }
+        </button>
+
+
+        <p class="text-center mt-20">
+            Already have an account? <a routerLink="/sign-in">Sign in</a>
+        </p>
+    </form>
+</div>

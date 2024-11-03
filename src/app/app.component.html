@@ -1,1 +1,45 @@
-<router-outlet />
+<header #headerRef class="sticky">
+    @if(deviceType !== Devices.MOBILE){
+    <mat-toolbar color="primary">
+        <div class="container">
+            <div routerLink="/">
+                @if(!logo.hide){
+                <img [src]="logo.src" [alt]="logo.alt" [srcset]="logo.srcset" />
+                }
+                <h1 class="title">{{ title }}</h1>
+            </div>
+            <span style="flex: 1 1 auto"></span>
+
+            @if (!authService.isAuthenticated()) {
+            <button mat-flat-button routerLink="/sign-in">
+                <mat-icon>login</mat-icon> Sign In</button>
+            <button mat-flat-button routerLink="/sign-up">
+                <mat-icon>person</mat-icon> Sign Up</button>
+            } @else {
+            <button mat-flat-button routerLink="/dashboard">Dashboard</button>
+            <button mat-flat-button (click)="authService.logout()" routerLink="/">
+                <mat-icon>logout</mat-icon> Sign Out</button>
+            }
+        </div>
+    </mat-toolbar>
+    }
+</header>
+<main>
+    <router-outlet></router-outlet>
+</main>
+
+<footer>
+    @if(deviceType === Devices.MOBILE){
+    <mat-toolbar class="toolbarNav">
+        <button mat-button routerLink="/sign-in" routerLinkActive="active-link">
+            <mat-icon>person</mat-icon>
+        </button>
+        <button mat-button routerLink="/" routerLinkActive="active-link">
+            <mat-icon>home</mat-icon>
+        </button>
+        <button mat-button routerLink="/history" routerLinkActive="active-link">
+            <mat-icon>history</mat-icon>
+        </button>
+    </mat-toolbar>
+    }
+</footer>

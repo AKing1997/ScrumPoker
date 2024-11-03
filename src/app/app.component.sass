@@ -1,0 +1,64 @@
+header
+    &.sticky
+        position: sticky
+        top: 0
+        z-index: 1000
+    mat-toolbar
+
+        &.mat-toolbar.mat-primary.mat-toolbar-single-row, &.custom-toolbar
+            background: #005cbb
+            color: white
+
+        div
+            display: flex
+            width: 100%
+            max-width: 1200px
+            margin: auto
+
+    .toolbarNav
+        position: fixed
+        bottom: 0
+        z-index: 1000
+        display: flex
+        justify-content: space-around
+        background-color: white
+
+        -webkit-box-shadow: 3px 3px 5px 6px #ccc
+        -moz-box-shadow: 3px 3px 5px 6px #ccc
+        box-shadow: 2px 2px 4px 5px #ccc
+
+        button
+            display: flex
+            flex-direction: column
+            align-items: center
+            width: 100%
+            span
+                display: block
+
+        button:hover,
+        .active-link
+            background-color: transparent
+            color: #005cbb
+
+button.mdc-button.mdc-button--unelevated.mat-mdc-unelevated-button.mat-unthemed.mat-mdc-button-base
+    min-width: auto
+    margin: 0 .2rem
+
+@media (max-width: 768px)
+    footer
+        width: 100%
+        position: absolute
+        bottom: 0
+
+        mat-toolbar
+            width: 100%
+            display: flex
+            justify-content: space-between
+            padding: 0
+            margin: 0
+
+            button
+                flex: 1
+                display: flex
+                justify-content: center
+                align-items: center

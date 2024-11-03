@@ -1,0 +1,100 @@
+div.option
+    margin: 1rem
+    
+.grid-container
+    margin: 1rem
+    display: grid
+    grid-template-areas: 'side side main main main' 'side side main main main' 'side side main main main'
+    gap: 1rem
+
+    .grid-content
+        display: flex
+        background-color: #fff
+        border-radius: 8px
+        transition: box-shadow 0.3s ease
+        font-weight: 400
+        grid-area: main
+        
+        &.side-bar
+            grid-area: side
+            background-color: #005cbb
+            color: #fff
+        div
+            width: 100%
+            display: flex
+            flex-direction: column
+            padding: .2rem
+            
+            div
+                margin: 0
+                padding: 0 .1rem
+                display: flex
+                height: auto
+                color: #005cbb
+                background: #ffF
+                flex-direction: row
+                justify-content: space-between
+                align-items: center
+                h5
+                    margin: 0
+                    font-weight: 500
+                    font-size: 1rem
+            mat-chip-listbox
+                margin: 10px 0
+                display: flex
+                justify-content: center
+                align-items: center
+
+                mat-chip-option
+                    width: 100%
+                    margin-left: 8px
+                    background-color: #fff
+                    color: #005cbb
+
+            .scrum-poker-cards
+                display: flex
+                flex-wrap: wrap
+                gap: 10px
+                justify-content: center
+
+                .card
+                    width: 100%
+                    max-width: 125px
+                    max-height: 200px
+                    aspect-ratio: 1 / 2
+                    border-radius: 10px
+                    display: inline-flex
+                    flex-direction: column
+                    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2)
+                    background-color: white
+                    overflow: hidden
+                    transition: transform 0.2s
+                    cursor: pointer
+
+                    &.disabled 
+                        opacity: 0.5
+                        pointer-events: none
+                        cursor: not-allowed
+
+                    &:hover
+                        transform: scale(1.05)
+
+                    .section
+                        display: flex
+                        justify-content: center
+                        align-items: center
+                        padding: 20px
+                        font-size: 1.2em
+                        color: #333
+                        position: relative
+
+                    .right
+                        justify-content: flex-start
+                        align-items: flex-start
+
+                    .center
+                        font-size: 2.5rem
+
+                    .left
+                        justify-content: flex-end
+                        align-items: flex-end

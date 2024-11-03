@@ -1,0 +1,59 @@
+.main-container
+    max-width: 1200px
+    margin: 1rem auto
+    box-sizing: border-box
+
+    .mb
+        margin-bottom: 1rem
+
+    .btn-group
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        align-items: center
+        justify-content: flex-end
+
+        button
+            margin: 0 .5rem
+
+    .row
+        display: flex
+        flex-wrap: wrap
+
+        .col-6
+            flex: 0 0 calc(50% - 20px)
+            padding: 15px
+            box-sizing: border-box
+            margin: 10px
+            color: #005cbb
+
+            // &:hover
+            //     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2)
+
+        // mat-list
+        //     margin-top: 10px
+
+    @media (max-width: 768px)
+        .row
+            margin: auto 10px
+            .col-6
+                margin: .5rem auto
+                flex: 0 0 100%
+
+mat-list
+    margin: 0
+    padding: 0
+    border-radius: 8px
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1)
+    transition: box-shadow 0.3s ease
+
+    > mat-list-item
+        background-color: #fff
+        border-radius: 4px 4px 0 0
+        transition: box-shadow 0.3s ease
+        border-bottom: 1px solid #b6b6b6
+        padding: 5px
+        font-weight: 400
+        &:hover
+            box-shadow: 0 4px 20px rgba(73, 72, 72, 0.2)
+            border-bottom: none

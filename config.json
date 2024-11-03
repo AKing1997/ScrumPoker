@@ -1,0 +1,8 @@
+{
+  "API_SP": {
+    "URL": {
+      "BASE": "http://localhost:3000",
+      "WebSocketUrl": "ws://localhost:3000/connect"
+    }
+  }
+}
