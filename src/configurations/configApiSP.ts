@@ -7,6 +7,7 @@ export const API_SP = {
         ROOM: config.API_SP.URL.BASE + '/room',
         USER: config.API_SP.URL.BASE + '/user',
         STORY: config.API_SP.URL.BASE + '/story',
+        ESTIMATION_VOTE: config.API_SP.URL.BASE + '/estimation-vote',
         WebSocketUrl: config.API_SP.URL.WebSocketUrl
     },
 }

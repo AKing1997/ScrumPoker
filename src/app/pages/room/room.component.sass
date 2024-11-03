@@ -1,5 +1,31 @@
 div.option
     margin: 1rem
+    display: flex
+    flex-wrap: wrap
+    gap: .5rem
+    .user-list
+        margin: auto 1rem
+        .user
+            background: white
+            color: #005cbb
+            display: flex
+            align-items: center
+            justify-content: space-between
+            flex-direction: row
+            border-radius: 10px
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2)
+            background-color: white
+            overflow: hidden
+            transition: transform 0.2s
+            padding: .5rem
+            .offline
+                color: #ff0000
+            .online
+                color: #005cbb
+            &.voted
+                background-color: #84c286
+                color: white
+            
     
 .grid-container
     margin: 1rem

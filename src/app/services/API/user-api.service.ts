@@ -25,6 +25,10 @@ export class UserApiService {
         return this.http.get<User>(`${this.apiUrl}/username/${username}`);
     }
 
+    getUserDataByToken(): Observable<User> {
+        return this.http.get<User>(`${this.apiUrl}/getUserDataByToken`);
+    }
+
     getUserById(id: number): Observable<User> {
         return this.http.get<User>(`${this.apiUrl}/id/${id}`);
     }

@@ -6,6 +6,7 @@ export interface User {
     name?: string;
     lastName?: string;
     isVerified?: boolean;
+    isConnectedWS?: boolean;
     verificationToken?: any;
     verificationTokenExpiry?: any;
 }

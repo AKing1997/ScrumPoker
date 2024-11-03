@@ -32,15 +32,12 @@ export class SocketService {
             },
         };
 
-        // Desconecta si ya existe una conexión
         if (this.socket) {
             this.disconnect();
         }
 
-        // Crea una nueva instancia de Socket con el token configurado
         this.socket = new Socket(config);
 
-        // Eventos de conexión y desconexión
         this.socket.on('connect', () => console.log('Conectado al WebSocket server'));
         this.socket.on('disconnect', (reason: string) => console.log('Desconectado del WebSocket server', reason));
         this.socket.on('connect_error', (error: Error) => console.error('Error de conexión:', error));

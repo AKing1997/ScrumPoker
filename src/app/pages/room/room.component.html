@@ -1,8 +1,25 @@
 <div class="option">
+    <button mat-flat-button color="danger" (click)="revelPoint()">
+        <mat-icon>visibility</mat-icon> Revel Point
+    </button>
     <button mat-flat-button color="primary" (click)="AddTeam()">
         <mat-icon>add</mat-icon> Add team
     </button>
-
+    <div class="user-list">
+        <div class="user">
+            <span>{{room.user?.userName}}</span>&nbsp;
+            <mat-icon
+                [ngClass]="{'offline': !room.user?.isConnectedWS, 'online': room.user?.isConnectedWS}">wifi</mat-icon>
+        </div>
+        @for (team of room.teams; track $index) {
+        @for (user of team.members; track $index) {
+        <div class="user" [ngClass]="{'voted': getCurrentUserVoted(user.id ? user.id : 0)}">
+            <span>{{user.userName}}</span>&nbsp;
+            <mat-icon [ngClass]="{'offline': !user.isConnectedWS, 'online': user.isConnectedWS}">wifi</mat-icon>
+        </div>
+        }
+        }
+    </div>
 </div>
 <div class="grid-container">
     <div class="grid-content side-bar">
@@ -17,11 +34,10 @@
             </div>
             <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Historias en esta sala">
                 @if(storys.length === 0) {
-                <mat-chip-option>No stories in this room.</mat-chip-option>
+                <mat-chip-option disabled>No stories in this room.</mat-chip-option>
                 }
                 @for(story of storys; track $index) {
-                <mat-chip-option (selectionChange)="selectStory(story)" (removed)="selectStory(null)"
-                    [disabled]="!story.isOpen">
+                <mat-chip-option (selectionChange)="selectStory(story)" [disabled]="story.id == storySelected?.id">
                     {{ story.title }} @if(story.estimatedPoint){
                     {{ story.estimatedPoint }}
                     }
@@ -39,7 +55,7 @@
             }
             <div class="scrum-poker-cards">
                 @for (value of pokerValues; track $index) {
-                <div class="card" [ngClass]="{ 'disabled': storySelected == null }">
+                <div class="card" [ngClass]="{ 'disabled': storySelected == null }" (click)="selectPointCard(value)">
                     <div class="section right">
                         {{ value }}
                     </div>
