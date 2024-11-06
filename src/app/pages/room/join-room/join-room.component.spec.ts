@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListItemComponent } from './list-item.component';
+import { JoinRoomComponent } from './join-room.component';
 
-describe('ListItemComponent', () => {
-  let component: ListItemComponent;
-  let fixture: ComponentFixture<ListItemComponent>;
+describe('JoinRoomComponent', () => {
+  let component: JoinRoomComponent;
+  let fixture: ComponentFixture<JoinRoomComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ListItemComponent]
+      imports: [JoinRoomComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ListItemComponent);
+    fixture = TestBed.createComponent(JoinRoomComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

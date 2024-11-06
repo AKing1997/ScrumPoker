@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { API_SP } from '../../../configurations/configApiSP';
+import { API_SP } from '../../../configurations/api-config-endpoints';
 import { Team } from '../../interfaces/API/team.interface';
 
 @Injectable({

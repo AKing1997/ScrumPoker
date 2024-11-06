@@ -6,6 +6,8 @@ import { AuthService } from './services/API/auth.service';
 import { authInterceptor } from './interceptor/auth.interceptor';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { DeviceService } from './services/device.service';
+import { ScrumPokerService } from './services/scrum-poker.service';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -13,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor])),
     AuthService,
     DeviceService,
-    provideAnimationsAsync(), provideAnimationsAsync()
-  ]
+    ScrumPokerService,
+    provideAnimationsAsync(),
+  ],
 };

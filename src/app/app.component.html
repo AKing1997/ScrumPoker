@@ -16,7 +16,8 @@
             <button mat-flat-button routerLink="/sign-up">
                 <mat-icon>person</mat-icon> Sign Up</button>
             } @else {
-            <button mat-flat-button routerLink="/dashboard">Dashboard</button>
+            <button mat-flat-button routerLink="/dashboard">
+                <mat-icon>dashboard</mat-icon> Dashboard</button>
             <button mat-flat-button (click)="authService.logout()" routerLink="/">
                 <mat-icon>logout</mat-icon> Sign Out</button>
             }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Room } from '../../interfaces/API/room.interface';
-import { API_SP } from '../../../configurations/configApiSP';
+import { API_SP } from '../../../configurations/api-config-endpoints';
 
 @Injectable({
     providedIn: 'root'

@@ -1,26 +1,45 @@
-.not-found
+.not-found-container
+    width: 100%
+    height: calc(100vh - 64px)
     display: flex
-    flex-direction: column
-    justify-content: center
     align-items: center
-    height: 100vh
-    margin: 0
-    font-family: Arial, sans-serif
-    background-color: #f8f9fa
-    color: #343a40
+    justify-content: center
+    flex-wrap: wrap
 
-h1
-    font-size: 2em
+    .not-found-content
+        text-align: center
+        padding: 50px
+        background-color: #f8f9fa
+        border-radius: 8px
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1)
+        width: 50%
+        margin: auto
+        max-width: 600px
 
-p
-    font-size: 1.2em
+        h1
+            font-size: 2.5rem
+            color: #343a40
+            margin-bottom: 20px
 
-.btn
-    margin-top: 20px
-    padding: 10px 20px
-    font-size: 1em
-    color: white
-    background-color: #007bff
-    border: none
-    border-radius: 5px
-    cursor: pointer
+        p
+            font-size: 1.2rem
+            color: #6c757d
+            margin-bottom: 30px
+
+        button
+            display: inline-flex
+            align-items: center
+            background-color: #007bff
+            color: white
+            font-size: 1rem
+            border: none
+            border-radius: 5px
+            padding: 10px 20px
+            cursor: pointer
+            transition: background-color 0.3s
+
+            &:hover
+                background-color: #0056b3
+
+            mat-icon
+                margin-right: 5px

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { API_SP } from '../../../configurations/configApiSP';
+import { API_SP } from '../../../configurations/api-config-endpoints';
 import { ToastService } from '../ToastService.service';
 import { Router } from '@angular/router';
 
@@ -21,10 +21,8 @@ export class AuthService {
 
         return this.http.post<any>(this.API_URL.SIGN_IN, { UserName, Password }, { headers }).pipe(
             map(response => {
-                console.log('Respuesta de la API:', response);
                 if (response && response.access_token) {
                     this.setToken(response.access_token);
-                    //this.toast.success('Inicio de sesión exitoso');
                     return true;
                 }
                 this.toast.error('Error en el inicio de sesión: credenciales incorrectas');

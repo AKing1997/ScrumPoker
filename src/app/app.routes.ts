@@ -8,6 +8,7 @@ import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { authGuardDeactive } from './guard/auth-guard-deactive.guard';
 import { RoomComponent } from './pages/room/room.component';
+import { JoinRoomComponent } from './pages/room/join-room/join-room.component';
 
 const publicRoutes: Routes = [
     { path: '', component: LandingComponent },
@@ -17,7 +18,14 @@ const publicRoutes: Routes = [
 
 const protectedRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
-    { path: 'room/:id', component: RoomComponent, canActivate: [authGuard] },
+    {
+        path: 'room',
+        component: RoomComponent,
+        canActivate: [authGuard],
+        children: [
+            { path: 'join-room/:id', component: JoinRoomComponent },
+        ]
+    },
 ];
 
 export const routes: Routes = [

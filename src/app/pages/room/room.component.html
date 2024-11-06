@@ -1,73 +1,21 @@
-<div class="option">
-    <button mat-flat-button color="danger" (click)="revelPoint()">
-        <mat-icon>visibility</mat-icon> Revel Point
-    </button>
-    <button mat-flat-button color="primary" (click)="AddTeam()">
-        <mat-icon>add</mat-icon> Add team
-    </button>
-    <div class="user-list">
-        <div class="user">
-            <span>{{room.user?.userName}}</span>&nbsp;
-            <mat-icon
-                [ngClass]="{'offline': !room.user?.isConnectedWS, 'online': room.user?.isConnectedWS}">wifi</mat-icon>
+<mat-drawer-container class="container" autosize>
+    <mat-drawer [ngClass]="isCollapsed ? '' : 'expanded'" [mode]="isMobile ? 'over' : 'side'"
+        [opened]="isMobile ? 'false' : 'true'">
+        <div class="sidenav-btn sidenav-btn-main" aria-label="Menu icon" (click)="toggleMenu()">
+            @if(isCollapsed){<mat-icon>chevron_right</mat-icon>}
+            @else {<mat-icon>chevron_left</mat-icon>}
         </div>
-        @for (team of room.teams; track $index) {
-        @for (user of team.members; track $index) {
-        <div class="user" [ngClass]="{'voted': getCurrentUserVoted(user.id ? user.id : 0)}">
-            <span>{{user.userName}}</span>&nbsp;
-            <mat-icon [ngClass]="{'offline': !user.isConnectedWS, 'online': user.isConnectedWS}">wifi</mat-icon>
+        <div class="sidenav-btn">
+            <mat-icon>menu</mat-icon>
+            @if(!isCollapsed){&nbsp; Dashboard}
         </div>
-        }
-        }
-    </div>
-</div>
-<div class="grid-container">
-    <div class="grid-content side-bar">
-        <div>
-            <h3>Rooms</h3>
-
-            <div>
-                <h5>Stories</h5>
-                <button mat-button color="primary" (click)="createStory()">
-                    <mat-icon>add</mat-icon> Add story
-                </button>
-            </div>
-            <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Historias en esta sala">
-                @if(storys.length === 0) {
-                <mat-chip-option disabled>No stories in this room.</mat-chip-option>
-                }
-                @for(story of storys; track $index) {
-                <mat-chip-option (selectionChange)="selectStory(story)" [disabled]="story.id == storySelected?.id">
-                    {{ story.title }} @if(story.estimatedPoint){
-                    {{ story.estimatedPoint }}
-                    }
-                </mat-chip-option>
-                }
-            </mat-chip-listbox>
+        <div class="sidenav-btn">
+            <mat-icon>menu</mat-icon>
+            @if(!isCollapsed){&nbsp; Dashboard}
         </div>
-    </div>
-
-    <div class="grid-content">
-        <div>
-            <p>{{storySelected?.title}}</p>
-            @if(storySelected?.description){
-            <p>{{storySelected?.description}}</p>
-            }
-            <div class="scrum-poker-cards">
-                @for (value of pokerValues; track $index) {
-                <div class="card" [ngClass]="{ 'disabled': storySelected == null }" (click)="selectPointCard(value)">
-                    <div class="section right">
-                        {{ value }}
-                    </div>
-                    <div class="section center">
-                        {{ value }}
-                    </div>
-                    <div class="section left">
-                        {{ value }}
-                    </div>
-                </div>
-                }
-            </div>
-        </div>
-    </div>
-</div>
+    </mat-drawer>
+    <mat-drawer-content>
+        <h2>Content</h2>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

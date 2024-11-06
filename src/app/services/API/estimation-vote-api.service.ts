@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Estimation, EstimationVote } from '../../interfaces/API/estimation-vote.interface';
-import { API_SP } from '../../../configurations/configApiSP';
+import { API_SP } from '../../../configurations/api-config-endpoints';
 
 @Injectable({
     providedIn: 'root'
