@@ -1,134 +1,146 @@
-div.option
-    margin: 1rem
+div.main-container
     display: flex
-    flex-wrap: wrap
-    gap: .5rem
-    .user-list
-        margin: auto 1rem
-        display: flex
-        gap: .5rem
-        flex-wrap: wrap
-        .user
-            background: white
-            color: #005cbb
-            display: flex
-            align-items: center
-            justify-content: space-between
-            flex-direction: row
-            border-radius: 10px
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2)
-            background-color: white
-            overflow: hidden
-            transition: transform 0.2s
-            padding: .5rem
-            .offline
-                color: #ff0000
-            .online
-                color: #005cbb
-            &.voted
-                background-color: #84c286
-                color: white
-            
-    
-.grid-container
-    margin: 1rem
-    display: grid
-    grid-template-areas: 'side side main main main' 'side side main main main' 'side side main main main'
-    gap: 1rem
+    flex-direction: column
+    width: 100%
+    height: calc(100vh - 100px)
 
-    .grid-content
-        display: flex
-        background-color: #fff
-        border-radius: 8px
-        transition: box-shadow 0.3s ease
-        font-weight: 400
-        grid-area: main
+    div.option
         
-        &.side-bar
-            grid-area: side
-            background-color: #005cbb
-            color: #fff
-        div
-            width: 100%
+        margin: 1rem
+        display: flex
+        flex-wrap: wrap
+        gap: .5rem
+        .user-list
+            margin: auto 1rem
             display: flex
-            flex-direction: column
-            padding: .2rem
-            
-            div
-                margin: 0
-                padding: 0 .1rem
-                display: flex
-                height: auto
+            gap: .5rem
+            flex-wrap: wrap
+            .user
+                background: white
                 color: #005cbb
-                background: #ffF
-                flex-direction: row
+                display: flex
+                align-items: center
                 justify-content: space-between
-                align-items: center
-                h5
-                    margin: 0
-                    font-weight: 500
-                    font-size: 1rem
-            mat-chip-listbox
-                margin: 8px 0 8px 8px
-                display: flex
-                justify-content: center
-                align-items: center
-
-                mat-chip-option
-                    width: 100%
-                    margin-left: 8px
-                    background-color: #fff
+                flex-direction: row
+                border-radius: 10px
+                box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2)
+                background-color: white
+                overflow: hidden
+                transition: transform 0.2s
+                padding: .5rem
+                .offline
+                    color: #ff0000
+                .online
                     color: #005cbb
+                &.voted
+                    background-color: #84c286
+                    color: white
+                   
+    .grid-container
+        width: 100%
+        height: 100%
+        margin: 1rem
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        gap: 1rem
 
-                    &.estimatedPoint
-                        background-color: #00bb4e
-
-
-
-            .scrum-poker-cards
+        .grid-content
+            display: flex
+            font-weight: 400
+            width: calc(100% - 300px)
+            
+            &.side-bar
+                width: 250px
+                max-width: 250px
+                background-color: #005cbb
+                color: #fff
+            div
+                width: 100%
                 display: flex
-                flex-wrap: wrap
-                gap: 10px
-                justify-content: center
+                flex-direction: column
+                padding: .2rem
+                
+                p
+                    min-height: 1rem
+                div
+                    margin: 0
+                    padding: 0 .1rem
+                    display: flex
+                    height: auto
+                    color: #005cbb
+                    background: #ffF
+                    flex-direction: row
+                    justify-content: space-between
+                    align-items: center
+                    &.background-transparent
+                        background-color: transparent
+                    h5
+                        margin: 0
+                        font-weight: 500
+                        font-size: 1rem
+                mat-chip-listbox
+                    margin: 8px 0 8px 8px
+                    display: flex
+                    justify-content: center
+                    align-items: center
 
-                .card
-                    width: 100%
-                    max-width: 125px
-                    max-height: 200px
-                    aspect-ratio: 1 / 2
-                    border-radius: 10px
-                    display: inline-flex
-                    flex-direction: column
-                    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2)
-                    background-color: white
-                    overflow: hidden
-                    transition: transform 0.2s
-                    cursor: pointer
+                    mat-chip-option
+                        width: 100%
+                        margin-left: 8px
+                        background-color: #fff
+                        color: #005cbb
 
-                    &.disabled 
-                        opacity: 0.5
-                        pointer-events: none
-                        cursor: not-allowed
+                        &.estimatedPoint
+                            background-color: #00bb4e
 
-                    &:hover
-                        transform: scale(1.05)
 
-                    .section
-                        display: flex
-                        justify-content: center
-                        align-items: center
-                        padding: 20px
-                        font-size: 1.2em
-                        color: #333
-                        position: relative
 
-                    .right
-                        justify-content: flex-start
-                        align-items: flex-start
+                .scrum-poker-cards
+                    display: flex
+                    flex-wrap: wrap
+                    gap: 10px
+                    justify-content: center
 
-                    .center
-                        font-size: 2.5rem
+                    .card
+                        width: 100%
+                        max-width: 125px
+                        max-height: 200px
+                        aspect-ratio: 1 / 2
+                        border-radius: 10px
+                        display: inline-flex
+                        flex-direction: column
+                        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2)
+                        background-color: white
+                        overflow: hidden
+                        transition: transform 0.2s
+                        cursor: pointer
+                        
 
-                    .left
-                        justify-content: flex-end
-                        align-items: flex-end
+                        &.disabled 
+                            opacity: 0.5
+                            pointer-events: none
+                            cursor: not-allowed
+
+                        &:hover
+                            transform: scale(1.05)
+
+                        .section
+                            display: flex
+                            justify-content: center
+                            align-items: center
+                            padding: 20px
+                            font-size: 1.2em
+                            color: #005cbb
+                            position: relative
+
+                        .right
+                            justify-content: flex-start
+                            align-items: flex-start
+
+                        .center
+                            font-size: 2.5rem
+
+                        .left
+                            justify-content: flex-end
+                            align-items: flex-end

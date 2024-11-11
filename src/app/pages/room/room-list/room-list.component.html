@@ -1,0 +1,27 @@
+<button mat-flat-button extended (click)="createRoom()">
+    <mat-icon>add</mat-icon>
+    Create room
+</button>
+<mat-list>
+    @if(rooms.length === 0){
+    <mat-list-item>There are no rooms available.</mat-list-item>
+    } @for(room of rooms; track $index) {
+    <div class="card-container"></div>
+    <mat-card>
+        <mat-card-header routerLink="/room/detail/{{room.id}}">
+            <mat-card-title>{{ room.name }}</mat-card-title>
+            <mat-card-subtitle>{{ room.description }}</mat-card-subtitle>
+        </mat-card-header>
+        <!-- <img mat-card-image src="{{room.img}}" alt="{{room.img_alt}}"> -->
+        <mat-card-content>
+            <p>content</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button routerLink="/room/join/{{room.id}}">Join to room <mat-icon>login</mat-icon></button>
+        </mat-card-actions>
+    </mat-card>
+    <!-- <mat-list-item routerLink="/room/{{ room.id }}">
+        {{ room.name }}
+    </mat-list-item> -->
+    }
+</mat-list>

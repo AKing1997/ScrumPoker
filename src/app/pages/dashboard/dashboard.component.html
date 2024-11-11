@@ -1,36 +1,6 @@
 <div class="main-container">
-    <div class="btn-group mb">
-        <button mat-flat-button extended (click)="createRoom()">
-            <mat-icon>add</mat-icon>
-            Create room
-        </button>
-        <button mat-flat-button extended (click)="createTeam()">
-            <mat-icon>add</mat-icon>
-            Create team
-        </button>
-    </div>
-
+    Dashbord
     <div class="row">
-        <div class="col-6">
-            <h5>Rooms</h5>
-            <mat-list>
-                @if(rooms.length === 0){
-                <mat-list-item>No hay salas disponibles.</mat-list-item>
-                }
-                @for(room of rooms; track $index) {
-                <mat-list-item routerLink="/room/{{room.id}}">
-                    {{ room.name }}
-                </mat-list-item>
-                }
-            </mat-list>
-        </div>
-        <div class="col-6">
-            <h5>Teams</h5>
-            <mat-list>
-                @for(team of teams; track $index) {
-                <mat-list-item>{{ team.name }}</mat-list-item>
-                }
-            </mat-list>
-        </div>
+
     </div>
 </div>

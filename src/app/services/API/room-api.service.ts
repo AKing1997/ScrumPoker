@@ -32,6 +32,10 @@ export class RoomApiService {
         return this.http.get<any[]>(`${this.apiUrl}/user-rooms`);
     }
 
+    getRooms(): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrl}/rooms`);
+    }
+
     getRoomByIdAndValidateAccess(roomId: number): Observable<Room> {
         return this.http.get<any>(`${this.apiUrl}/${roomId}`);
     }

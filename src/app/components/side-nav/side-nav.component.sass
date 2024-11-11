@@ -18,9 +18,17 @@ mat-drawer-container.container
 
         .sidenav-btn
             padding: 0.5rem
+            margin-bottom: .1rem
             display: flex
             align-items: center
             justify-content: flex-start
+
+        .sidenav-btn-active, .sidenav-btn:hover:not(.sidenav-btn-main)
+            background-color: white
+            color: #0056b3
+            transition: width 0.3s ease
+            border-radius: 0 25px 25px 0
+
         .entry
             display: flex
             align-items: center
@@ -34,7 +42,8 @@ mat-drawer-container.container
             color: #fff
 
     mat-drawer-content
-            padding: 1rem
-            display: flex
-            flex-direction: column
-            align-items: flex-start
+        margin: 0
+        padding: 1rem
+        display: flex
+        flex-direction: column
+        flex-wrap: wrap

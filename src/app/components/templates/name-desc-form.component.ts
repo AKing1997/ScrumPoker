@@ -23,7 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
       <mat-form-field class="full-width">
         <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description" required></textarea>
+        <textarea matInput formControlName="description"></textarea>
         @if(roomForm.get('description')?.hasError('required') && roomForm.get('description')?.touched) {
           <mat-error>
             Description is required.

@@ -9,4 +9,5 @@ export interface User {
     isConnectedWS?: boolean;
     verificationToken?: any;
     verificationTokenExpiry?: any;
+    createdAt?: any;
 }

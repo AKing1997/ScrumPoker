@@ -1,0 +1,25 @@
+<mat-drawer-container class="container" autosize>
+    <mat-drawer [ngClass]="isCollapsed ? '' : 'expanded'" [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile">
+        @if(showBackButton){
+        <div class="sidenav-btn sidenav-btn-back" (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+            @if(!isCollapsed){<span>&nbsp; Go back</span>}
+        </div>
+        }
+        <div class="sidenav-btn sidenav-btn-main" aria-label="Menu icon" (click)="toggleMenu()">
+            <mat-icon>{{ isCollapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
+        </div>
+
+        @for (menuItem of menuItems; track $index) {
+        <div class="sidenav-btn" [routerLink]="menuItem.route" routerLinkActive="sidenav-btn-active">
+            <mat-icon>{{ menuItem.icon }}</mat-icon>
+            @if(!isCollapsed){<span>&nbsp; {{ menuItem.label }}</span>}
+        </div>
+        }
+
+    </mat-drawer>
+
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

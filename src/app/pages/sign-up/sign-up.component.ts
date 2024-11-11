@@ -45,11 +45,11 @@ export class SignUpComponent {
 
   onSubmit() {
     if (this.signUpForm.valid) {
-      this.isLoading = true; // Inicia el estado de carga
+      this.isLoading = true;
       const { UserName, Name, LastName, Email, Password } = this.signUpForm.value;
       this.authService.register(UserName, Name, LastName, Email, Password).subscribe({
         next: (success) => {
-          this.isLoading = false; // Finaliza el estado de carga
+          this.isLoading = false;
           if (success) {
             console.log('Registro y login exitosos');
           } else {
@@ -57,7 +57,7 @@ export class SignUpComponent {
           }
         },
         error: (error) => {
-          this.isLoading = false; // Finaliza el estado de carga
+          this.isLoading = false;
           console.error('Error en la petición de registro:', error);
         }
       });

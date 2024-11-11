@@ -9,6 +9,7 @@ export interface Story {
     isOpen: boolean;
     room?: Room;
     estimations?: Estimation[];
+    createdAt?: any;
 }
 export interface CreateStory {
     title: string;

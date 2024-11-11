@@ -35,4 +35,12 @@ export class TeamApiService {
     getUserTeams(): Observable<Team[]> {
         return this.http.get<any[]>(`${this.apiUrl}/user-teams`);
     }
+
+    getTeams(): Observable<Team[]> {
+        return this.http.get<any[]>(`${this.apiUrl}/teams`);
+    }
+
+    joinTeam(teamId: number): Observable<Team> {
+        return this.http.post<Team>(`${this.apiUrl}/${teamId}/join`, null);
+    }
 }

@@ -10,8 +10,9 @@ export interface EstimationVote {
 }
 
 export interface Estimation {
-    id: number
-    voteValue: string
-    user: User
-    story: Story
+    id: number;
+    voteValue: string;
+    user: User;
+    story: Story;
+    createdAt?: any;
 }

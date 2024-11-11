@@ -9,17 +9,22 @@ import { Devices } from './enums/Devices';
 import { AuthService } from './services/API/auth.service';
 import { DeviceService } from './services/device.service';
 import { Logo } from './interfaces/Logo';
+import { MatMenuModule } from '@angular/material/menu';
+import { UserApiService } from './services/API/user-api.service';
+import { User } from './interfaces/API/user.interface';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatButtonModule, MatIconModule, RouterLink, MatToolbarModule],
+  imports: [RouterOutlet, MatButtonModule, MatIconModule, RouterLink, MatToolbarModule, MatMenuModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit {
   deviceType: Devices = Devices.DESKTOP;
   Devices = Devices;
+  currentUser: User | null = null;
+  private readonly userApiService = inject(UserApiService);
   authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
   private subscription: Subscription = new Subscription();
@@ -28,6 +33,7 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.loadCurrentUser();
     this.subscription.add(
       this.deviceService.observeDeviceType().subscribe((deviceType: Devices) => {
         this.deviceType = deviceType;
@@ -46,6 +52,17 @@ export class AppComponent implements OnInit {
     alt: 'Scrum Poker Gues',
     hide: true
   };
+
+  private loadCurrentUser(): void {
+    this.userApiService.getUserDataByToken().subscribe({
+      next: (user) => {
+        this.currentUser = user;
+      },
+      error: (error) => {
+        console.error('Error retrieving room:', error);
+      }
+    })
+  }
 
   signIn() {
     this.router.navigate(['sign-in']);

@@ -1,0 +1,27 @@
+<button mat-flat-button extended (click)="createTeam()">
+    <mat-icon>add</mat-icon>
+    Create team
+</button>
+<mat-list>
+    @if(teams.length === 0){
+    <mat-list-item class="not-available">There are no teams available.</mat-list-item>
+    }
+    @for(team of teams; track $index) {
+    <div class="card-container"></div>
+    <mat-card>
+        <mat-card-header routerLink="/team/detail/{{team.id}}">
+            <mat-card-title>{{ team.name }}</mat-card-title>
+            <mat-card-subtitle>{{ team.description }}</mat-card-subtitle>
+        </mat-card-header>
+        <!-- <img mat-card-image src="{{room.img}}" alt="{{room.img_alt}}"> -->
+        <mat-card-content>
+            <p>content</p>
+        </mat-card-content>
+        <mat-card-actions>
+            @if (!currentUserInCurrentTeam(team)) {
+            <button mat-button (click)="joinTeam(team.id)">Join to team<mat-icon>login</mat-icon></button>
+            }
+        </mat-card-actions>
+    </mat-card>
+    }
+</mat-list>

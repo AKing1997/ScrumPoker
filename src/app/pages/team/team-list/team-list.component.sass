@@ -1,0 +1,38 @@
+mat-list
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+
+mat-card
+    background: white
+    border-radius: 8px
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1)
+    width: calc(20% - 1rem)
+    box-sizing: border-box
+    margin: .5rem
+    mat-actions 
+        flex-direction: column-reverse
+
+mat-card-actions
+    justify-content: flex-end
+    
+@media (max-width: 1200px)
+    mat-card
+        width: calc(33.33% - 1rem)
+
+@media (max-width: 800px)
+    mat-card
+        width: calc(50% - 1rem)
+
+@media (max-width: 500px)
+    mat-card
+        width: 100%
+
+.not-available
+    background: #00000036
+    padding: .5rem
+    border-radius: .5rem
+    text-align: center
+    width: auto
+    margin: auto
+    max-width: 300px

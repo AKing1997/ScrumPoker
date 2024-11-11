@@ -23,12 +23,13 @@ import { User } from '../../../interfaces/API/user.interface';
 import { ScrumPokerService } from '../../../services/scrum-poker.service';
 import { UserApiService } from '../../../services/API/user-api.service';
 import { Subscription } from 'rxjs';
-import { GuesListComponent } from "../../../components/gues-list/gues-list.component";
-
+import { EstimationVoteApiService } from '../../../services/API/estimation-vote-api.service';
+import { EstimationVote } from '../../../interfaces/API/estimation-vote.interface';
+import { SortStoriesPipe } from "../../../pipes/sort-stories.pipe";
 @Component({
   selector: 'app-join-room',
   standalone: true,
-  imports: [MatGridListModule, MatListModule, MatButtonModule, MatIconModule, MatChipsModule, MatCardModule, CommonModule, GuesListComponent],
+  imports: [MatGridListModule, MatListModule, MatButtonModule, MatIconModule, MatChipsModule, MatCardModule, CommonModule, SortStoriesPipe],
   templateUrl: './join-room.component.html',
   styleUrls: ['./join-room.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -48,6 +49,7 @@ export class JoinRoomComponent implements OnInit, OnDestroy {
   private readonly roomApiService = inject(RoomApiService);
   private readonly userApiService = inject(UserApiService);
   private readonly storyApiService = inject(StoryApiService);
+  private readonly estimationVoteApiService = inject(EstimationVoteApiService);
   private readonly toastService = inject(ToastService);
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly scrumPokerService = inject(ScrumPokerService);
@@ -55,6 +57,7 @@ export class JoinRoomComponent implements OnInit, OnDestroy {
   currentUser: User | null = null;
   room: Room | null = null;
   teams: Team[] = [];
+  teamsList: Team[] = [];
   storys: Story[] = [];
 
   ngOnInit(): void {
@@ -101,7 +104,7 @@ export class JoinRoomComponent implements OnInit, OnDestroy {
       content: SelectObjectComponent,
       confirmText: 'Select',
       cancelText: 'Cancel',
-      objects: this.teams
+      objects: this.teamsList
     };
     this.openDialog(dialogData, this.saveAddTeam.bind(this));
   }
@@ -118,8 +121,24 @@ export class JoinRoomComponent implements OnInit, OnDestroy {
 
   selectPointCard(value: PokerVoteValue): void {
     if (!this.storySelected?.id || !this.currentUser?.id || !this.socketConnected) return;
+    const vote: EstimationVote = {
+      storyId: this.storySelected.id,
+      userId: this.currentUser?.id,
+      voteValue: value
+    };
 
-    this.scrumPokerService.vote(this.storySelected.id, value, this.roomId);
+    this.estimationVoteApiService.createEstimationVote(vote).subscribe({
+      next: () => {
+        this.loadRoomObject();
+        this.scrumPokerService.vote(vote.storyId, value, this.roomId);
+        //this.toastService.success('Your vote has been successfully submitted');
+      },
+      error: (error) => {
+        console.error('Error submitting vote:', error);
+        this.toastService.error('There was an error submitting your vote. Please try again.');
+      }
+    });
+
   }
 
   revelPoint(): void {
@@ -145,9 +164,8 @@ export class JoinRoomComponent implements OnInit, OnDestroy {
 
   private loadTeams(): void {
     this.teamApiService.getUserTeams().subscribe({
-      next: (data: any[]) => {
-        this.teams = data;
-        this.cdr.detectChanges();
+      next: (data: Team[]) => {
+        this.teamsList = data;
       },
       error: (err) => {
         console.error('Error loading teams:', err);
@@ -173,8 +191,18 @@ export class JoinRoomComponent implements OnInit, OnDestroy {
       description: result.description,
       roomId: this.roomId
     };
-
-    this.scrumPokerService.createStory(newStory);
+    this.storyApiService.createStory(newStory).subscribe({
+      next: (story) => {
+        this.storys.push(story);
+        this.cdr.detectChanges();
+        this.scrumPokerService.createdStory(newStory);
+        this.toastService.success('Historia creada exitosamente');
+      },
+      error: (error) => {
+        console.error('Error al crear la historia:', error);
+        this.toastService.error('No se pudo crear la historia. Intente de nuevo.');
+      }
+    });
   }
 
   private openDialog(dialogData: DialogData, onSuccess: (result: any) => void): void {

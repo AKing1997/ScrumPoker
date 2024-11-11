@@ -93,8 +93,8 @@ export class ScrumPokerService {
      * Crea una nueva historia con los datos proporcionados.
      * @param storyData - Datos de la historia a crear.
      */
-    createStory(storyData: any): void {
-        this.socket.emit('createStory', storyData);
+    createdStory(storyData: any): void {
+        this.socket.emit('createdStory', storyData);
     }
 
     /**
