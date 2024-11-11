@@ -5,10 +5,10 @@
     "ng": "ng",
     "start": "ng serve",
     "build:dev": "ng build",
-    "build": "ng build --prod --output-hashing=none",
+    "build": "ng build --configuration production --output-hashing=none",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
-  },
+  },  
   "private": true,
   "dependencies": {
     "@angular/animations": "^18.2.0",
