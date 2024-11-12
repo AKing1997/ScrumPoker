@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { MenuItem, SideNavComponent } from '../../components/side-nav/side-nav.component';
-import { RouterLink, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'GuesMainLayout',
   standalone: true,
   imports: [
     RouterModule,
-    RouterLink,
     SideNavComponent
   ],
   template: `

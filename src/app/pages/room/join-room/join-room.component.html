@@ -1,13 +1,11 @@
 <div class="main-container">
     <div class="option">
-        @if(room?.user?.id == currentUser?.id){
-        <button mat-flat-button color="danger" (click)="revelPoint()">
+        <button *ngIf="room?.user?.id == currentUser?.id" mat-flat-button color="danger" (click)="revelPoint()">
             <mat-icon>visibility</mat-icon> Revel Point
         </button>
-        <button mat-flat-button color="primary" (click)="addTeam()">
+        <button *ngIf="room?.user?.id == currentUser?.id" mat-flat-button color="primary" (click)="addTeam()">
             <mat-icon>add</mat-icon> Add team
         </button>
-        }
         <div class="user-list">
             @if(room?.user){
             <div class="user" [ngClass]="{'voted': getCurrentUserVoted(room?.user?.id ?? 0)}">
@@ -66,7 +64,8 @@
                 }
                 <div class="scrum-poker-cards background-transparent">
                     @for (value of pokerValues; track $index) {
-                    <div class="card" [ngClass]="{ 'disabled': storySelected == null || storySelected.estimatedPoint}"
+                    <div class="card"
+                        [ngClass]="{ 'disabled': storySelected == null || storySelected.estimatedPoint || room?.user?.id == currentUser?.id, 'voted': storySelected?.estimatedPoint == value}"
                         (click)="selectPointCard(value)">
                         <div class="section right">
                             {{ value }}

@@ -1,1 +1,28 @@
-<p>room-detail works!</p>
+<div class="main-container">
+    <div class="detail">
+        <div class="header">
+            <div class="header-title">{{room?.name}}</div>
+            <div class="header-sub-title">{{room?.description}}</div>
+        </div>
+    </div>
+    <div class="content">
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="room-tree">
+            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                <button mat-icon-button disabled></button>
+                <span>{{ node.name }}</span>
+                <small *ngIf="node.description"> - {{ node.description }}</small>
+            </mat-tree-node>
+
+            <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+                <button mat-icon-button matTreeNodeToggle>
+                    <mat-icon>
+                        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+                    </mat-icon>
+                </button>
+                <span>{{ node.name }}</span>
+                <small *ngIf="node.description"> - {{ node.description }}</small>
+            </mat-tree-node>
+        </mat-tree>
+
+    </div>
+</div>

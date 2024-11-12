@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, OnDestroy, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterOutlet } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { MatIconModule } from '@angular/material/icon'
+import { Subscription, BehaviorSubject, Observable } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Devices } from './enums/Devices';
@@ -12,28 +12,41 @@ import { Logo } from './interfaces/Logo';
 import { MatMenuModule } from '@angular/material/menu';
 import { UserApiService } from './services/API/user-api.service';
 import { User } from './interfaces/API/user.interface';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatButtonModule, MatIconModule, RouterLink, MatToolbarModule, MatMenuModule],
+  imports: [RouterOutlet, MatButtonModule, MatIconModule, RouterLink, MatToolbarModule, MatMenuModule, CommonModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   deviceType: Devices = Devices.DESKTOP;
   Devices = Devices;
-  currentUser: User | null = null;
+  currentUser$: Observable<User | null>;
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
   private readonly userApiService = inject(UserApiService);
   authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
   private subscription: Subscription = new Subscription();
-
   private deviceService = inject(DeviceService);
 
+  title = 'Scrum Poker';
+  logo: Logo = {
+    src: 'http://localhost:4200/assets/logo.png',
+    alt: 'Scrum Poker Gues',
+    hide: true
+  };
+
+  constructor() {
+    this.currentUser$ = this.currentUserSubject.asObservable();
+  }
 
   ngOnInit(): void {
-    this.loadCurrentUser();
+    if (this.authService.isAuthenticated()) {
+      this.loadCurrentUser();
+    }
     this.subscription.add(
       this.deviceService.observeDeviceType().subscribe((deviceType: Devices) => {
         this.deviceType = deviceType;
@@ -46,22 +59,16 @@ export class AppComponent implements OnInit {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-  title = 'Scrum Poker';
-  logo: Logo = {
-    src: 'http://localhost:4200/assets/logo.png',
-    alt: 'Scrum Poker Gues',
-    hide: true
-  };
 
   private loadCurrentUser(): void {
     this.userApiService.getUserDataByToken().subscribe({
       next: (user) => {
-        this.currentUser = user;
+        this.currentUserSubject.next(user);
       },
       error: (error) => {
-        console.error('Error retrieving room:', error);
+        console.error('Error retrieving user:', error);
       }
-    })
+    });
   }
 
   signIn() {

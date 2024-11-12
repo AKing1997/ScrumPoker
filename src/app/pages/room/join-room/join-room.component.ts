@@ -42,48 +42,40 @@ export class JoinRoomComponent implements OnInit, OnDestroy {
     PokerVoteValue.COFFEE, 0, 1, 2, 3, 5, 8, 13, 21, 34, PokerVoteValue.INFINITY
   ];
 
-  roomId: number = 0;
-  private route: ActivatedRoute = inject(ActivatedRoute);
-  private readonly dialog = inject(MatDialog);
-  private readonly teamApiService = inject(TeamApiService);
-  private readonly roomApiService = inject(RoomApiService);
-  private readonly userApiService = inject(UserApiService);
-  private readonly storyApiService = inject(StoryApiService);
-  private readonly estimationVoteApiService = inject(EstimationVoteApiService);
-  private readonly toastService = inject(ToastService);
-  private readonly cdr = inject(ChangeDetectorRef);
-  private readonly scrumPokerService = inject(ScrumPokerService);
-
   currentUser: User | null = null;
   room: Room | null = null;
   teams: Team[] = [];
   teamsList: Team[] = [];
   storys: Story[] = [];
+  roomId: number = 0;
+
+  constructor(
+    private route: ActivatedRoute,
+    private readonly dialog: MatDialog,
+    private readonly teamApiService: TeamApiService,
+    private readonly roomApiService: RoomApiService,
+    private readonly userApiService: UserApiService,
+    private readonly storyApiService: StoryApiService,
+    private readonly estimationVoteApiService: EstimationVoteApiService,
+    private readonly toastService: ToastService,
+    private readonly cdr: ChangeDetectorRef,
+    private readonly scrumPokerService: ScrumPokerService,
+  ) {
+    this.initializeRoom();
+  }
+
 
   ngOnInit(): void {
-    const idParam = this.route.snapshot.paramMap.get('id');
-    this.roomId = idParam ? +idParam : 0;
-    this.socketConnectedSubscription = this.scrumPokerService.isSocketConnected$.subscribe(isConnected => {
-      this.socketConnected = isConnected;
-      if (isConnected) {
-        this.scrumPokerService.joinRoom(this.roomId);
-        this.loadTeams();
-        this.loadRoomObject();
-        this.loadCurrentUser();
-        this.setupSocketListeners();
-      }
-    });
+    this.checkSocketConnection();
   }
 
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any): void {
-    this.scrumPokerService.leaveRoom(this.roomId);
-    this.scrumPokerService.disconnect();
+    this.leaveAndDisconnectRoom();
   }
 
   ngOnDestroy(): void {
-    this.scrumPokerService.leaveRoom(this.roomId);
-    this.scrumPokerService.disconnect();
+    this.leaveAndDisconnectRoom();
   }
 
   getCurrentUserVoted(userId: number): boolean {
@@ -95,9 +87,6 @@ export class JoinRoomComponent implements OnInit, OnDestroy {
     this.scrumPokerService.selectStory(value.id, this.roomId);
   }
 
-  /**
-   * This function is a implemention of show dialog form for add one team in room
-   */
   addTeam(): void {
     const dialogData: DialogData = {
       title: 'Add team to room',
@@ -147,6 +136,37 @@ export class JoinRoomComponent implements OnInit, OnDestroy {
     }
   }
 
+  private initializeRoom(): void {
+    const idParam = this.route.snapshot.paramMap.get('id');
+    this.roomId = idParam ? +idParam : 0;
+
+    this.socketConnectedSubscription = this.scrumPokerService.isSocketConnected$.subscribe(isConnected => {
+      this.socketConnected = isConnected;
+      if (isConnected) {
+        this.handleSocketConnection();
+      }
+    });
+  }
+
+  private checkSocketConnection(): void {
+    if (!this.socketConnected) {
+      this.scrumPokerService.connect();
+    }
+  }
+
+  private handleSocketConnection(): void {
+    this.scrumPokerService.joinRoom(this.roomId);
+    this.loadTeams();
+    this.loadRoomObject();
+    this.loadCurrentUser();
+    this.setupSocketListeners();
+  }
+
+  private leaveAndDisconnectRoom(): void {
+    this.scrumPokerService.leaveRoom(this.roomId);
+    this.scrumPokerService.disconnect();
+  }
+
   private loadRoomObject(): void {
     this.roomApiService.getRoomByIdAndValidateAccess(this.roomId).subscribe({
       next: (room) => {
@@ -163,7 +183,7 @@ export class JoinRoomComponent implements OnInit, OnDestroy {
   }
 
   private loadTeams(): void {
-    this.teamApiService.getUserTeams().subscribe({
+    this.teamApiService.getTeams().subscribe({
       next: (data: Team[]) => {
         this.teamsList = data;
       },

@@ -115,7 +115,12 @@ div.main-container
                         overflow: hidden
                         transition: transform 0.2s
                         cursor: pointer
-                        
+                        background-color: white
+                        color: #005cbb
+
+                        &.voted
+                            background-color: #4caf50
+                            color: #ffffff
 
                         &.disabled 
                             opacity: 0.5
@@ -131,8 +136,9 @@ div.main-container
                             align-items: center
                             padding: 20px
                             font-size: 1.2em
-                            color: #005cbb
                             position: relative
+                            background-color: inherit
+                            color: inherit
 
                         .right
                             justify-content: flex-start

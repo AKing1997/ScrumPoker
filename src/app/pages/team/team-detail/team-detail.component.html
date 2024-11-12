@@ -1,1 +1,27 @@
-<p>team-detail works!</p>
+<div class="main-container">
+    <div class="detail">
+        <div class="header">
+            <div class="header-title">{{teamData?.name}}</div>
+            <div class="header-sub-title">{{teamData?.description}}</div>
+        </div>
+    </div>
+    <div class="content">
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="team-tree">
+            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                <button mat-icon-button disabled></button>
+                <span class="node-name">{{ node.name }}</span>
+                <span *ngIf="node.description" class="node-description">{{ node.description }}</span>
+            </mat-tree-node>
+
+            <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+                <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
+                    <mat-icon>
+                        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+                    </mat-icon>
+                </button>
+                <span class="node-name">{{ node.name }}</span>
+                <span *ngIf="node.description" class="node-description">{{ node.description }}</span>
+            </mat-tree-node>
+        </mat-tree>
+    </div>
+</div>

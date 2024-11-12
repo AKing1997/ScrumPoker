@@ -3,9 +3,8 @@
     Create room
 </button>
 <mat-list>
-    @if(rooms.length === 0){
-    <mat-list-item>There are no rooms available.</mat-list-item>
-    } @for(room of rooms; track $index) {
+    <mat-list-item *ngIf="rooms.length === 0">There are no rooms available.</mat-list-item>
+    @for(room of rooms; track $index) {
     <div class="card-container"></div>
     <mat-card>
         <mat-card-header routerLink="/room/detail/{{room.id}}">
@@ -20,8 +19,5 @@
             <button mat-button routerLink="/room/join/{{room.id}}">Join to room <mat-icon>login</mat-icon></button>
         </mat-card-actions>
     </mat-card>
-    <!-- <mat-list-item routerLink="/room/{{ room.id }}">
-        {{ room.name }}
-    </mat-list-item> -->
     }
 </mat-list>
